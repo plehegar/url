@@ -34,6 +34,7 @@ var fs = require("fs")
     ,   edDraftURI:     "http://w3ctag.github.io/url/"
     ,   license:        "cc-by"
     }
+,   references = {}
 ;
 
 
@@ -42,6 +43,12 @@ for (var k in localConfig) respecConfig[k] = localConfig[k];
 var respecSource = rfs(rel("header-maker.html"))
                         .replace("###CONFIG###", JSON.stringify(respecConfig, null, 4))
 ;
+
+// prepare the reference overrides
+fs.readdirSync(rel("references")).forEach(function (f) {
+    if (!/\.html$/.test(f)) return;
+    references[f.replace(/\.html$/, "")] = rfs(rel("references/" + f));
+});
 
 tmp.file({ postfix: ".html" }, function (err, path) {
     if (err) error(err);
@@ -55,10 +62,32 @@ tmp.file({ postfix: ".html" }, function (err, path) {
                         .replace(/<script[^]*?<\/script>/mig, "")
                         .replace(/(<h2[^><]+id="table-of-contents)/i, data.abstract + "\n\n" + "$1")
                         .replace(/(<h2[^><]+id="table-of-contents)/i, data.sotd + "\n\n" + "$1")
+                        .replace(/(<h2[^><]+id="conformance)/i, data.rfcRelations + "\n\n" + "$1")
         ;
-
         // XXX do your own processing here
-        
+
+       for (var ref in references) {
+            var rex = new RegExp("<dt id=\"refs" + ref + "\">\\[" + ref + "\\]\\n<dd>.*?\\n");
+            domSrc = domSrc.replace(rex, "<dt id=\"refs" + ref + "\">[" + ref + "]\n" + references[ref]);
+        }
+
+       // subst links
+        domSrc = domSrc.replace(/http:\/\/encoding.spec.whatwg.org\//g, "http://www.w3.org/TR/encoding/");
+        domSrc = domSrc.replace(/http:\/\/dom.spec.whatwg.org\//g, "http://www.w3.org/TR/dom/");
+
+
+        var fragMap = JSON.parse(rfs("fragment-links.json"));
+        domSrc = domSrc.replace(/http:\/\/www\.whatwg\.org\/specs\/web-apps\/current-work\/multipage\/[\w-]+\.html#([^"]+)/g
+                            ,   function (m, p1) {
+                                    if (fragMap[p1]) return "http://www.w3.org/html/wg/drafts/html/master/" + fragMap[p1] + ".html#" + p1;
+                                    return m;
+                                });
+
+        // other clean-up
+        domSrc = domSrc.replace(/Align RFC 3986 and RFC 3987 with contemporary implementations[^]*?obsolete them in the process./,
+                                "Align RFC 3986 and RFC 3987 with contemporary implementations.");
+        domSrc = domSrc.replace(/<p class="note">[^]*?somewhat./, "");
+
         console.log("Writing " + outputFile);
         wfs(outputFile, domSrc);
     });
