@@ -15,6 +15,7 @@
               window.callPhantom({
                   head:     $("head").html()
               ,   divHead:  $("div.head").html()
+              ,   abstract:     $("#abstract").html()
               ,   sotd:     $("#sotd").html()
               });
           });
@@ -26,7 +27,11 @@
     <link rel='stylesheet' href='style.css'>
   </head>
   <body>
-    <section id='abstract'></section>
+    <section id='abstract'>
+      <p>
+        This specification defines a single global identification system for the World Wide Web.
+      </p>
+    </section>
     <section id='sotd'>
       <p>
         This document is published as a snapshot of the 

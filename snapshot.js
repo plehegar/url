@@ -53,6 +53,7 @@ tmp.file({ postfix: ".html" }, function (err, path) {
                         .replace(/<meta charset[^]*?<div/im, "<head>\n" + data.head + "\n</head>\n<div")
                         .replace(/<div class="head">[^]*?<\/div>/im, "<div class='head'>" + data.divHead + "</div>")
                         .replace(/<script[^]*?<\/script>/mig, "")
+                        .replace(/(<h2[^><]+id="table-of-contents)/i, data.abstract + "\n\n" + "$1")
                         .replace(/(<h2[^><]+id="table-of-contents)/i, data.sotd + "\n\n" + "$1")
         ;
 
