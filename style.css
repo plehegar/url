@@ -1,30 +1,47 @@
 
 code :link, code :visited { color: inherit; }
 
-h1 + h2, h2 + h3, h3 + h4, h4 + h5, h5 + h6,
-  h1 + div.status + h2, h2 + div.status + h3, h3 + div.status + h4, h4 + div.status + h5, h5 + div.status + h6 { margin-top: 0.5em; }
-
-.toc ul, .toc ol {
-  list-style: none outside none;
-}
+h1 + h2, h2 + h3, h3 + h4, h4 + h5, h5 + h6, h1 + div.status + h2, h2 + div.status + h3, h3 + div.status + h4, h4 + div.status + h5, h5 + div.status + h6 { margin-top: 0.5em; }
 
 dd p, dd ol, dd ol.brief { margin-top: 0; }
-dd dl + p, dd dl + div.status + p { margin-top: 1em; }
-dd table + p, dd table + div.status + p { margin-top: 1em; }
-p + * > li, p + div.status + * > li, dd li { margin: 1em 0; }
-@media screen { code { color: orangered; } }
-.toc dfn, h1 dfn, h2 dfn, h3 dfn, h4 dfn, h5 dfn, h6 dfn { font: inherit; }
+dd dl + p, dd dl + div.status + p { margin-top: 1.25em; }
+dd table + p, dd table + div.status + p { margin-top: 1.25em; }
+p + * > li, p + div.status + * > li, dd li, p + * > li > p, p + div.status + * > li > p, dd li > p { margin: 1em 0; }
+
+.toc, .toc li { list-style: none; }
+
+dt, dfn { font-weight: bolder; font-style: normal; }
+i, em, dt dfn { font-style: italic; }
+pre, code { font-size: inherit; font-family: monospace, Droid Sans Fallback, Helvetica Neue, sans-serif; font-variant: normal; }
+pre strong { color: black; font: inherit; background: #DDFFDD; color: green; }
+pre small { color: silver; font: inherit; }
+pre em { font-weight: bolder; font-style: normal; }
+var sub { vertical-align: bottom; font-size: smaller; top: 0.1em; }
+table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+table thead, table tbody { border-bottom: solid; }
+table tbody th { text-align: left; }
+table tbody th:first-child { border-left: solid; }
+table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+blockquote { margin: 0 0 0 2em; border: 0; padding: 0; font-style: italic; }
+
+img, object, p.overview { position: relative; z-index: 3; }
 img.extra, p.overview { float: right; }
-hr.bookmark { border: dashed 2em black; background: yellow; }
-pre {
-    white-space:    pre-wrap;
-}
-pre::before { font: bold 0.8em sans-serif; padding: 0.5em; position: absolute; top: auto; margin: -0.6em 0 0 -3.6em /* 1em/0.8 + 1.5em + 0.5em*2 */ ; width: 1.5em; background: inherit; border: 0.078125em; border-style: solid none solid solid; border-radius: 1em 0 0 1em; }
-pre.idl { border: solid 0.0625em; background: #fcfafa; color: black; padding: 0.5em 1em; }
-pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
+p > img:only-child { margin-left: 2em; }
+
+dl.switch { padding-left: 2em; }
+dl.switch > dt { text-indent: -1.5em; }
+dl.switch > dt > * { text-indent: 0; }
+dl.switch > dt:before { content: '\21AA'; padding: 0 0.5em 0 0; display: inline-block; width: 1em; text-align: right; line-height: 0.5em; }
+dl.triple { padding: 0 0 0 1em; }
+dl.triple dt, dl.triple dd { margin: 0; display: inline }
+dl.triple dt:after { content: ':'; }
+dl.triple dd:after { content: '\A'; white-space: pre; }
+tr.rare { background: #EEEEEE; color: #333333; }
+
+pre.idl::before, pre.asn::before, pre.css::before { font: bold 0.8rem Helvetica Neue, sans-serif; padding: 0.5em; position: absolute; top: auto; margin: -0.703125em 0 0 -3.75em /* 1em/0.8 + 1.5em + 0.5em*2 */ ; width: 1.5em; background: inherit; border: 0.078125em; border-style: solid none solid solid; border-radius: 1em 0 0 1em; }
+pre.idl { border: solid 0.0625em; background: #EEEEEE; color: black; padding: 0.5em 1em; }
 pre.idl::before { content: 'IDL'; }
 pre.asn { border: solid 0.0625em; background: #EEEEEE; color: black; padding: 0.5em 1em; }
-pre.asn :link, pre.asn :visited { color: inherit; background: transparent; }
 pre.asn::before { content: 'ASN'; }
 pre.css { border: solid 0.0625em; background: #FFFFEE; color: black; padding: 0.5em 1em; }
 pre.css:first-line { color: #AAAA50; }
@@ -47,15 +64,32 @@ dl.triple dd:after { content: '\A'; white-space: pre; }
 a .diff-new { border-bottom: 1px blue solid; }
 tr.rare { background: #EEEEEE; color: #333333; }
 
-figure.diagrams { border: double black; background: white; padding: 1em; }
+.note { position: relative; background: #DDFFDD; font-style: italic; margin-left: 2em; padding-left: 2em; }
+.note em, .note i, .note var { font-style: normal; }
+span.note { padding: 0 2em; }
+.note p:first-child { margin-top: 0; }
+.note p:last-child { margin-bottom: 0; }
+dd > .note:first-child { margin-bottom: 0; }
+.note::before { content: 'Note:'; font-weight: bold; background: white; color: black; padding: 0.15em 0.25em; font-style: normal; position: absolute; top: -0.2em; left: -1.5em;}
+
+.warning { color: red; background: transparent; font: bolder italic 1em Helvetica Neue, sans-serif, Droid Sans Fallback; position: relative; margin: 2em 0 2em 6em; padding-left: 2em; }
+.warning em, .warning i, .warning var { font-style: normal; }
+.warning p:first-child { margin-top: 0; }
+.warning p:last-child { margin-bottom: 0; }
+.warning::before { font-style: normal; content: 'Warning! '; padding: 0.15em 0.25em; font-style: normal; position: absolute; top: -0.2em; left: -4.25em; }
+
+.example { display: block; color: #222222; background: #EEEEEE; margin-left: 2em; padding-left: 3em; position: relative; }
+.example::before { font-style: normal; content: 'Example: '; display: block; font-weight: bold; }
+td > .example:only-child { margin: 0 0 0 0.1em; padding: 0; }
+td > .example:only-child::before { display: none; }
+
+figure.diagrams { border: thin solid black; background: white; padding: 1em; }
 figure.diagrams img { display: block; margin: 1em auto; }
 
 h2:not(.short) { page-break-before: always; }
+h2#contents { page-break-before: avoid; }
 h1, h2, h3, h4, h5, h6, dt { page-break-after: avoid; }
 hgroup h2, h1 + h2, hr + h2.no-toc { page-break-before: auto ! important; }
-
-p  > span:not([title=""]):not([class="XXX"]):not([class="impl"]):not([class="note"]),
-li > span:not([title=""]):not([class="XXX"]):not([class="impl"]):not([class="note"]) { border-bottom: solid #99CC99; }
 
 .brief { margin-top: 1em; margin-bottom: 1em; line-height: 1.1; }
 .brief > li { margin: 0; padding: 0; }
@@ -73,32 +107,12 @@ li > span:not([title=""]):not([class="XXX"]):not([class="impl"]):not([class="not
 .category-list li > span, .category-list li > a { text-transform: lowercase; }
 .category-list li * { text-transform: none; } /* don't affect <code> nested in <a> */
 
-[title=WIP], [title=TBW] { background: red; color: yellow; padding: 0.1em 0.3em; border: dotted white; margin: 0 0.7em 0 0.2em; }
-[title=SCS] { background: green; color: white; padding: 0.1em 0.3em; border-style: none dashed; margin: 0 0.7em 0 0.2em; }
-[title=WIP] :link, [title=WIP] :visited,
-[title=TBW] :link, [title=TBW] :visited,
-[title=SCS] :link, [title=SCS] :visited { background: transparent; color: inherit; }
-
 .big-issue, .XXX { color: #E50000; background: white; border: solid red; padding: 0.5em; margin: 1em 0; }
-.big-issue > :first-child, .XXX > :first-child { margin-top: 0; }
 p .big-issue, p .XXX { line-height: 3em; }
-.note { color: green; background: transparent; font-family: sans-serif, Droid Sans Fallback; }
-.warning { color: #da4453; background: transparent; }
-.note, .warning { font-weight: bolder; font-style: italic; }
-.note em, .warning em, .note i, .warning i, .note var, .warning var { font-style: normal; }
-p.note, div.note { padding: 0.5em 2em; }
-span.note { padding: 0 2em; }
-.note p:first-child, .warning p:first-child { margin-top: 0; }
-.note p:last-child, .warning p:last-child { margin-bottom: 0; }
-dd > .note:first-child { margin-bottom: 0; }
-.warning:before { font-style: normal; }
+.XXX::before { content: " ** "; }
 
 .tablenote { margin: 0.25em 0; }
 .tablenote small { font-size: 0.9em; }
-
-.XXX:before, .XXX:after { content: " ** "; position: absolute; left: 0; width: 8em; text-align: right; }
-p.note:before { content: 'Note: '; }
-p.warning:before { content: '\26A0 Warning! '; }
 
 .bookkeeping:before { display: block; content: 'Bookkeeping details'; font-weight: bolder; font-style: italic; }
 .bookkeeping { font-size: 0.8em; margin: 2em 0; }
@@ -115,7 +129,7 @@ h4 + .element, h4 + div.status + .element { margin-top: -2.5em; padding-top: 2em
 .element:before { position: absolute; z-index: 2; top: 0; left: -1.15em; height: 2em; width: 0.9em; background: #EEFFEE; content: ' '; border-style: none none solid solid; border-color: #99FF99; border-width: 0.25em; }
 .element:not(:hover) > dt > :link, .element:not(:hover) > dt > :visited { color: inherit; text-decoration: none; }
 
-table.css-property caption { text-align: left; font: inherit; font-weight: bold; }
+table.css-property caption { text-align: left; font: inherit; font-weight: bolder; }
 table.css-property th { font: inherit; font-style: italic; text-align: left; padding-left: 2em; }
 
 .example { display: block; color: #222222; background: #FCFCFC; border-left: double; margin-left: 2em; padding-left: 1em; }
@@ -134,30 +148,24 @@ body.dfnEnabled dfn { cursor: pointer; }
   height: auto;
   width: auto;
   padding: 0.5em 0.75em;
-  font: small sans-serif, Droid Sans Fallback;
+  font: sans-serif, Droid Sans Fallback;
   background: #DDDDDD;
   color: black;
   border: outset 0.2em;
 }
 .dfnPanel * { margin: 0; padding: 0; font: inherit; text-indent: 0; }
 .dfnPanel :link, .dfnPanel :visited { color: black; }
-.dfnPanel p { font-weight: bolder; }
+.dfnPanel p:not(.spec-link) { font-weight: bolder; }
 .dfnPanel * + p { margin-top: 0.25em; }
 .dfnPanel li { list-style-position: inside; }
 
-@media aural {  
-  h1, h2, h3 { stress: 20; richness: 90 }
-  .hide { speak: none }
-  p.copyright { volume: x-soft; speech-rate: x-fast }
-  dt { pause-before: 20% }
-  code, pre { speak-punctuation: code } 
-}
-
 @media print {
   html { font-size: 8pt; }
+  @page { margin: 1cm 1cm 1cm 1cm; }
   a[href^="#"]::after { font-size: 0.6em; vertical-align: super; padding: 0 0.15em 0 0.15em; content: "p" target-counter(attr(href), page); }
   .toc a::after { font: inherit; vertical-align: baseline; padding: 0; content: leader('.') target-counter(attr(href), page); }
   pre a[href^="#"]::after, blockquote a[href^="#"]::after { content: ""; padding: 0; }
+  table { font-size: smaller; }
 }
 
 ul.domTree, ul.domTree ul { padding: 0 0 0 1em; margin: 0; }
@@ -173,20 +181,3 @@ ul.domTree .t2 .value { color: blue; font-weight: normal; }
 ul.domTree .t3 code, .domTree .t4 code, .domTree .t5 code { color: gray; }
 ul.domTree .t7 code, .domTree .t8 code { color: green; }
 ul.domTree .t10 code { color: teal; }
-
-:target {
-   background:         #ffc;
-   box-shadow:         2px 2px 2px #ffa;
-}
-
-#anolis-references dd ul {
-    padding-left:   0;
-}
-
-#anolis-references dd ul li {
-    margin:   5px 0;
-}
-
-#anolis-references dt {
-    margin-top: 10px;
-}
